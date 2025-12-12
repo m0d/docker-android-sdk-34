@@ -13,4 +13,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - uses: docker/build-push-action@v6
       with:
-        tags: m0dus/android-sdk-34:${{ github.ref_name }},m0dus/android-sdk-34:latest
+          push: true
+          tags: |
+            m0dus/android-sdk-34:${{ github.ref_name }}
+            m0dus/android-sdk-34:latest
