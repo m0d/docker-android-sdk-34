@@ -1,7 +1,7 @@
 name: Build and Push
 on:
   push:
-    tags: ['v*.*.*']  # Trigger na tagi semver
+    tags: ['*.*']  # Trigger na tagi semver
 jobs:
   build:
     runs-on: ubuntu-latest
