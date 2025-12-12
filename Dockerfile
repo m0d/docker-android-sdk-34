@@ -71,11 +71,8 @@ EXPOSE 5037
 
 # install and configure SSH server
 EXPOSE 22
-ADD sshd-banner /etc/ssh/
-ADD accredited_keys /tmp/
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends openssh-server supervisor locales && \
-    mkdir -p /var/run/sshd /var/log/supervisord && \
+    apt-get install -y --no-install-recommends openssh-server locales && \
     locale-gen en en_US en_US.UTF-8 && \
     apt-get remove -y locales && apt-get autoremove -y && \
     FILE_SSHD_CONFIG="/etc/ssh/sshd_config" && \
@@ -92,6 +89,3 @@ RUN apt-get update && \
     do if [ -f "$file" ]; then echo "\n" >> $FILE_AUTH_KEYS && cat $file >> $FILE_AUTH_KEYS && echo "\n" >> $FILE_AUTH_KEYS; fi; \
     done && \
     (rm /tmp/*.pub 2> /dev/null || true)
-
-ADD supervisord.conf /etc/supervisor/conf.d/
-CMD ["/usr/bin/supervisord"]
