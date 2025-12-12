@@ -1,7 +1,7 @@
 name: Build and Push
 on:
   push:
-  workflow_dispatch:
+    tags: ['v*.*.*']  # Trigger na tagi semver
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,6 +13,4 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - uses: docker/build-push-action@v6
       with:
-        context: .
-        push: true
-        tags: m0dus/android-sdk-34:latest
+        tags: m0dus/android-sdk-34:${{ github.ref_name }},m0dus/android-sdk-34:latest
